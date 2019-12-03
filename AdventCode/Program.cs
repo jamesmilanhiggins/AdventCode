@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace AdventCode
@@ -8,28 +9,37 @@ namespace AdventCode
         static void Main(string[] args)
         {
             Console.WriteLine("Day 1");
-            System.IO.StreamReader file = new System.IO.StreamReader("../../../../input.txt");  
+            System.IO.StreamReader file = new System.IO.StreamReader("../../../../dayOneInput.txt");  
             
             int fuelRequirements = 0;  
             string line;
 
-            while((line = file.ReadLine()) != null)  
+            while((line = file.ReadLine()) != null)
             {
-                DayOneMath(line);
-                
+                int intLine = int.Parse(line);
+                FuelCalculation(intLine);
             }  
-            Console.WriteLine ("fuelRequirements = " + fuelRequirements);
+            Console.WriteLine("Fuel Requirements = " + fuelRequirements);
+            
 
-
-            int DayOneMath(string inputNumberString)
+            void FuelCalculation(int mass)
             {
-                int intMass = int.Parse(inputNumberString);
-                int intMassDivThree = intMass / 3; 
-
-                int intMassDivThreeMinus2 = intMassDivThree - 2;
+                int num = mass;
+                while (DivideByThreeAndSubtractTwo(num) > 0)
+                {
+                    int newNum = DivideByThreeAndSubtractTwo(num);
+                    fuelRequirements += newNum;
+                    num = newNum;
+                }
+            }
+            
+            int DivideByThreeAndSubtractTwo(int inputNumber)
+            {    
                 
-                return fuelRequirements += intMassDivThreeMinus2;
-
+                int massDivThree = inputNumber / 3; 
+                int numberAfterCalculation = massDivThree - 2;
+                
+                return numberAfterCalculation;
             }
 
         }
